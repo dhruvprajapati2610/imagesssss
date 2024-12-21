@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iLegal Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.1.0/remixicon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.1.0/remixicon.css">
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=66793db46b65c10019188ef5&product=inline-share-buttons&source=platform" async="async"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto+Slab&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="community-notification.css">  
+
+    
+        
+</head>
+<body>
+    <%- include('partials/community-header') %>
+    <!-- <header class="header">
+        <nav class="nav container">
+             <div class="nav-data">
+                 <img class="logo" src="../public/images/logo.png" height="69px" alt="" srcset="" style="padding-left: 35px;">
+                 
+                 <div class="search-box-container">
+                    <div class="search-box">
+                     <form action="" method="post">
+                       <input type="search" name="search" placeholder="Search" id="search">
+                       <div class="ipc-submit" ><i class="fa-solid fa-magnifying-glass"></i></div>
+                       </form>
+                    </div>
+                    <div class="search-result-container">
+                         <div class="search-results">
+
+                         </div>
+                    </div>
+                  </div>
+                  <div class="search-logo">
+                    <i class="fa-solid fa-magnifying-glass "></i>
+                    <span>Search</span>
+                    <i class="fa-solid fa-xmark cancel-search"></i>
+                    </div>
+             </div>
+             <div class="nav-menu" id="nav-menu">
+                 <ul class="nav-list">
+                     
+                 
+                     <li class="dropdown-item item-5">
+                       
+                        <div class="nav-link dropdown-button nav-link-home" href=""> <i class="fa-solid fa-house"></i><span>Home</span></div> 
+                        
+                     </li> 
+                     <li class="dropdown-item item-5">
+                       
+                        <div class="nav-link dropdown-button nav-link-notification" href=""> <i class="fa-solid fa-bell"></i><span>Notification </span></div> 
+                        
+                     </li>
+                     <li class="dropdown-item item-5">
+                       
+                        <div class="nav-link dropdown-button nav-link-account" href=""> <i class="fa-solid fa-user"></i><span>Account</span></div> 
+                        
+                     </li>  
+                     <li class="dropdown-item item-5">
+                       
+                        <div class="nav-link dropdown-button nav-link-website" href=""> <i class="fa-solid fa-arrow-right-to-bracket"></i><span>iLegalAdvice</span></div> 
+                        
+                     </li> 
+                     
+                    
+                   </ul>
+             </div>
+           
+        </nav>
+    </header>     -->
+  <div class="body">   
+     <div class="main-body">
+        <div class="sub-body">
+            <div class="notification-container-0">
+                <div class="notification-container">
+                <div class="notification-heading">
+                     <span>Notifications</span>
+                     <hr>
+                </div>
+                <ul class="notification-content">
+                    <% allnotifications.forEach(notification => { %>
+                    <li class="notification ">
+                        <div class="notification-status-profile">
+                            <input type="hidden" name="notificationId" value="<%= notification.id %>">
+                        <div class="unseen-notification <%=  notification.clicked ? 'seen' : '' %>">
+                            <span><i class="fa-solid fa-circle"></i></span>
+                        </div>
+                        <div class="profile-container">
+                            <div class="profile-img-container">
+                                <div class="profile-img">
+                                    <img src="../uploads/avatar.png" alt="">
+                                </div>
+                            </div>
+                            <div class="notification-para"  onclick="markNotificationClicked(<%= notification.id %>, event)">
+                               <p><a href="<%= notification.link %>" "><%= notification.lawyer_name %><%= notification.content %></a></p>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="notification-time">
+                            <span>9h</span>
+                        </div>
+                    </li>
+                    <% }) %>
+                   
+                    
+                    
+                </ul>
+                </div>
+            </div>
+          
+        </div>
+      </div>
+        <footer>
+            <div class="footer-section">
+              <div class="section-1">
+                  <div class="sub-sec-1">
+                     <div class="sub-ul" id="ul-1">
+                      <h3>Areas of Law</h3>
+                      <hr>
+                      <ul>
+                        <li class="ul-li1" id="ul-li1-1"><a href="/search-homepage-lawyers?law=divorce">Divorce</a></li>
+                        <li class="ul-li1" id="ul-li1-2"><a href="/search-homepage-lawyers?law=family-dispute">Family Dispute</a></li>
+                        <li class="ul-li1" id="ul-li1-3"><a href="/search-homepage-lawyers?law=child-custody">Child Custody</a></li>
+                        <li class="ul-li1" id="ul-li1-4"><a href="/search-homepage-lawyers?law=criminal">Criminal</a></li>
+                        <li class="ul-li1" id="ul-li1-5"><a href="/search-homepage-lawyers?law=property">Property</a></li>
+                        <li class="ul-li1" id="ul-li1-6"><a href="/search-homepage-lawyers?law=cyber-crime">Cyber Crime</a></li>
+                        <li class="ul-li1" id="ul-li1-7"><a href="/search-homepage-lawyers?law=trademark-&-copyright">Trademark & copyright</a></li>
+                        <li class="ul-li1" id="ul-li1-8"><a href="/search-homepage-lawyers?law=startup">Startup</a></li>
+                        <li class="ul-li1" id="ul-li1-9"><a href="/search-homepage-lawyers?law=banking-finance">Banking & Finance</a></li>
+                        <li class="ul-li1" id="ul-li1-10"><a href="/search-homepage-lawyers?law=documentation">Documentationm</a></li>
+                      </ul>
+                     </div>
+                     <div class="sub-ul"id="ul-2">
+                      <h3>  Cities</h3>
+                      <hr>
+                      <ul>
+                        <li class="ul-li2" id="ul-li2-1"><a href="/search-homepage-lawyers?city=Mumbai">Mumbai Lawyers</a></li>
+                        <li class="ul-li2" id="ul-li2-2"><a href="/search-homepage-lawyers?city=Delhi">Delhi Lawyers</a></li>
+                        <li class="ul-li2" id="ul-li2-3"><a href="/search-homepage-lawyers?city=Banglore">Bangalore Lawyers</a></li>
+                        <li class="ul-li2" id="ul-li2-4"><a href="/search-homepage-lawyers?city=Chennai">Chennai Lawyers</a></li>
+                        <li class="ul-li2" id="ul-li2-5"><a href="/search-homepage-lawyers?city=Pune">Pune Lawyers</a></li>
+                        <li class="ul-li2" id="ul-li2-6"><a href="/search-homepage-lawyers?city=Ahemdabad">Ahmedabad Lawyers</a></li>
+                        <li class="ul-li2" id="ul-li2-7"><a href="/search-homepage-lawyers?city=Kolkata">Kolkata Lawyers</a></li>
+                        <li class="ul-li2" id="ul-li2-8"><a href="/search-homepage-lawyers?city=Indore">Indore Lawyers</a></li>
+                        <li class="ul-li2" id="ul-li2-9"><a href="/search-homepage-lawyers?city=Jaipur">Jaipur Lawyers</a></li>
+                        <li class="ul-li2" id="ul-li2-10"><a href="/search-homepage-lawyers?city=Goa">Goa Lawyers</a></li>
+                      </ul>
+                     </div>
+                     <div class="sub-ul" id="ul-3">
+                      <h3>  Courts</h3>
+                      <hr>
+                      <ul>
+                        <li class="ul-li3" id="ul-li3-1"><a href="#">Delhi High Court</a></li>
+                        <li class="ul-li3" id="ul-li3-2"><a href="#">Bombay High Court</a></li>
+                        <li class="ul-li3" id="ul-li3-3"><a href="#">Allahabad High Court</a></li>
+                        <li class="ul-li3" id="ul-li3-4"><a href="#">Calcutta High Court</a></li>
+                        <li class="ul-li3" id="ul-li3-5"><a href="#">Karnataka High Court</a></li>
+                        <li class="ul-li3" id="ul-li3-6"><a href="#">Gujarat High Court</a></li>
+                        <li class="ul-li3" id="ul-li3-7"><a href="#">Hyderabad High Court</a></li>
+                        <li class="ul-li3" id="ul-li3-8"><a href="#">MadhyaPradesh High Court</a></li>
+                        <li class="ul-li3" id="ul-li3-9"><a href="#">Kerala High Court</a></li>
+                        <li class="ul-li3" id="ul-li3-10"><a href="#">Madras High Court</a></li>
+                      </ul>
+                     </div>
+                  </div>
+                  <div class="sub-sec-2">
+                    <div class="news-box">
+                      <div class="news-info">
+                      <div class="news-heading"><h3>Subscribe to our newsletter</h3></div>
+                      <div class="news-desc"><p>Monthly digest of what's new and exciting from us.</p></div>
+                      </div>
+                      <div class="news-email">
+                        <form action="">
+                          <div class="input-field if-field">
+                            <input type="email" name="email" id="signup-client-email" placeholder="Email Address">
+                         </div>
+                        <div class="button">
+                             <button type="submit" value="submit">submit</button>
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <hr>
+              <div class="section-2">
+                <div class="sec-2-sub-1">
+                  <ul>
+                    <li><a href="/about-us">About Us</a></li>
+                    <li><a href="/contact-us">Contact Us</a></li>
+                    <li><a href="/terms-of-use">Terms of Use</a></li>
+                    <li><a href="/privacy-policy">Privacy Policy</a></li>
+                  </ul>
+                </div>
+                <div class="sec-2-sub-2">
+                  <ul>
+                    <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+                  </ul>
+                </div>
+              </div>
+              <hr>
+              <div class="section-3">
+                <div class="s3-para-1">The information provided on ILegalAdvice.com is provided AS IS, subject to Terms Of Use & Privacy Policy. It is solely available at your request for informational purposes only, should not be interpreted as soliciting or advertisement. In cases where the user has any legal issues, he/she in all cases must seek independent legal advice. Advocate ratings displayed on ILegalAdvice.com are based on user feedback. They are not recommendations to engage or consult any lawyer. ILegalAdvice does not guarantee accuracy, adequacy or completeness of any information and is not responsible for any errors or omissions, or for results obtained from the use of such information.</div>
+                <div class="s3-para-2">ILegalAdvice.com © 2023 Company, Inc. All rights reserved</div>
+              </div>
+              
+            </div>
+        </footer> 
+          
+    </div>
+  
+     
+    <script >
+  
+
+       
+
+ 
+
+
+const searchLogo=document.querySelector(".search-logo")
+const navBar=document.querySelector(".nav-menu")
+const searchBar=document.querySelector(" .search-box-container")
+const cancelSearch=document.querySelector(".cancel-search")
+
+searchLogo.onclick=()=>{
+navBar.classList.add("unactive");
+searchLogo.classList.add("unactive-search");
+searchBar.classList.add("search-box-active");
+cancelSearch.classList.add("cancel-search-active");
+}
+
+cancelSearch.onclick=()=>{
+   
+    setTimeout(() => {
+        searchBar.classList.remove("search-box-active");
+        cancelSearch.classList.remove("cancel-search-active");
+        navBar.classList.remove("unactive");
+        searchLogo.classList.remove("unactive-search");
+    }, 100); 
+}
+
+const searchResult = document.querySelector(".search-result-container");
+const searchInput = document.querySelector("#search");
+const searchButton = document.querySelector(".ipc-submit");
+
+ searchInput.onkeyup = () => {
+  
+   if (searchInput.value.trim() === "") {
+     searchResult.classList.remove("search-result-active");
+   } else {
+    searchResult.classList.add("search-result-active");
+   }
+ };
+
+/*
+searchButton.onclick=()=>{
+    if (searchInput.value.trim() === "") {
+    searchResult.classList.remove("search-result-active");
+  } else {
+    searchResult.classList.add("search-result-active");
+  }
+} */
+
+
+
+searchButton.addEventListener("click", (e) => {
+  e.preventDefault(); 
+  
+});
+
+
+searchInput.addEventListener("input", () => {
+  
+  if (searchInput.value.trim() === "") {
+    searchResult.classList.remove("search-result-active");
+  }
+});
+
+function markNotificationClicked(notificationId, event) {
+  console.log(notificationId);
+    fetch(`/notifications/mark-clicked`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ notificationId: notificationId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+
+            const notificationElement = event.target.closest('li.notification');
+            notificationElement.querySelector('.unseen-notification').classList.add('seen');
+        } else {
+            console.error('Failed to mark notification as clicked');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+
+//SEARCH BAR --------------
+document.getElementById('search').addEventListener('input', async function () {
+    const query = this.value;
+
+    if (query.trim() === '') {
+        document.querySelector('.search-results').innerHTML = ''; // Clear results
+        return;
+    }
+
+    try {
+        const response = await fetch(`/community/search?search=${encodeURIComponent(query)}`);
+        const results = await response.json();
+        const resultsContainer = document.querySelector('.search-results');
+        resultsContainer.innerHTML = ''; // Clear previous results
+       
+        results.forEach(result => {
+            console.log(result);
+            const resultHTML = `
+                <div class="search-result-account">
+                    <div class="search-profile-image-container">
+                        <div class="search-profile-image">
+                            <img src="${result.image || '../uploads/avatar.png'}" alt="${result.name}">
+                        </div>
+                    </div>
+                    <div class="search-profile-name">
+                        <a href="/community/user-profile?id=${result.id}"> <div class="search-user-name">${result.name}</div></a>
+                       
+                        
+                    </div>
+                </div>
+            `;
+            resultsContainer.insertAdjacentHTML('beforeend', resultHTML);
+        });
+    } catch (err) {
+        console.error('Error fetching search results:', err);
+    }
+});
+
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iLegal Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.1.0/remixicon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.1.0/remixicon.css">
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto+Slab&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="community_user_profile.css">  
+
+    
+        
+</head>
+<body>
+   <%- include('partials/community-header') %>
+  <div class="body">   
+     <div class="main-body">
+        <div class="sub-body">
+            <div class="user-profile-container-0">
+                <div class="user-profile-container">
+                    <div class="cover-image-container">
+                        <div class="cover-image">
+                            <img src="/uploads/OIP.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="user-profile">
+                        <div class="profile-image-container">
+                            <div class="user-profile-image">
+                                <img src="<%=lawyers.image%>" alt="">
+                            </div>
+                        </div>
+                        <div class="profile-info">
+                            <div class="user-name-follow">
+                                <div class="user-name"><span><%=lawyers.name%></span></div>
+                                <div class="user-follow">
+                                    <% if(lawyerId==userId) { %>
+                                        <div id="edit-profile" class="follow-btn edit-profile">Edit Profile</div>
+                                   <% } else {%> 
+                                   
+                                        <% if(follow) { %>
+                                            <div class="follow-btn" id="follow-user">Following</div>
+                                      <%  } else {%>
+                                     <div class="follow-btn" id="follow-user">Follow</div>
+                                   <% } %>
+                                   <% } %>
+                                </div>
+                            </div>
+                            <div class="user-bio-location">
+                                <p class="user-bio">
+                                    <%= lawyers.community_bio ? lawyers.community_bio : lawyers.bio %>
+                            </p>
+                            <span class="user-location">
+                                <i class="fa-solid fa-location-dot"></i>
+                               <span class="user-city-state"><%=lawyers.city%>, <%=lawyers.states%></span>
+                            </span>
+                            <span class="user-followed-by">
+                                <% console.log(mutuals) %>
+                                <% if (mutuals && mutuals.length > 0) { %>
+                                    <span>Followed by
+                                      <a href=""><%= mutuals[0].mutual_lawyer_name %></a>
+                                      <% if (mutuals.length > 1) { %>, 
+                                        <a href=""><%= mutuals[1].mutual_lawyer_name %></a>
+                                      <% } %>
+                                      <% if (mutualCount > 2) { %>
+                                        <span class="more-followers">+ <%= adjustedMutualCount %> More</span>
+                                      <% } %>
+                                    </span>
+                                  <% } %>
+                                  
+                                   
+                              
+                            </span>
+                            </div>
+                            <div class="user-post-stat">
+                                <div class="user-post-info user-stat"><span class="stat-no"><%=totalPostCount%></span> <span class="stat-text">Posts</span></div>
+                                <div class="user-followers user-stat"><span class="stat-no"><%=followers_count%></span> <span class="stat-text">Followers</span></div>
+                                <div class="user-following user-stat"><span class="stat-no"><%=following_count%> </span><span class="stat-text">following</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+             <% posts.forEach(post=>{ %>
+
+            <div class="user-post-container">
+                 <div class="post-heading">
+                    <span>Users Post</span>
+                    <hr>
+                 </div>
+                <div class="user-full-post">
+                    <div class="user-full-post-info">
+                        <div class="post-info-date">
+                            <div class="full-post-date">1 July 2024 at 08:12 pm</div>
+                         
+                            <form action="/community/del-post/<%=post.post_id%>?_method=DELETE" method="post">
+                              <% if(userId==lawyerId) { %>
+                                <button type="submit"><div class="delete-post-btn"><i class="fa-solid fa-trash-can"></i></div></button> 
+                             <% } %>
+                            
+                        </form>                                     
+                        </div>
+                        <div class="post-info-img-p">
+                            <div class="post-info-img-container">
+                                <%if(post.image_path){ %>
+                                <div class="post-info-img">
+                                   
+                                    <img src="<%=post.image_path%>" alt="">
+                                   
+                                </div>
+                                <% } %>
+                            </div>
+                            <div class="post-info-p">
+                                <p>
+                                   <%=post.content %>
+                                </p>
+                           
+                            </div>
+                        </div>
+                        <div class="post-info-like-comment">
+                            <div class="post-info-likes-number">
+                                <i class="fa-solid fa-thumbs-up"></i>
+                                <span><%=post.like_count%> Likes</span>
+                            </div>
+                            <div class="post-info-comment-number">
+                                <span> Comments</span>
+                            </div>
+                        </div>
+                    </div>
+                   <div class="user-post">
+                  <div class="user-info">
+                     <div class="profile-name">
+                     <div class="profile-container">
+                         <div class="profile-image">
+                             <img src="../uploads/avatar.png" alt="">
+                         </div>
+                     </div>
+                     <div class="user-name-day">
+                          <div class="user-name">Sahil Shelavale</div>
+                          <div class="post-day"> 1 July 2024 at 08:12 pm</div> 
+                          
+                     </div>
+                     </div>
+                     <!-- <div class="follow-container">
+                         <div class="follow-btn">Follow</div>
+                         <div class="follow-icon"><i class="fa-solid fa-user-plus"></i></div>
+                     </div> -->
+                  </div>
+                  <div class="post-info">
+                      <div class="post-para">
+                         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi perspiciatis deserunt veniam iure hic explicabo laudantium eaque debitis quia nesciunt, recusandae, sunt possimus earum est fuga velit commodi voluptatem nostrum?
+                         </p>
+                         <p>
+                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam cum aspernatur ullam, ea vero doloribus facilis sapiente nemo perspiciatis veritatis.
+                         </p>
+                         <p>
+                             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione dolores, repellat, ipsum quos nesciunt vero neque sunt possimus quasi labore aperiam fugiat, corrupti officia tenetur dicta. Dolores, maiores tenetur, aliquam voluptatum minus sequi cupiditate nisi impedit ipsum a, atque natus. Ex, esse obcaecati libero cumque ipsa quae. Iure, rerum delectus.
+                         </p>
+                       
+                      </div>
+                      <%if(post.image_path){ %>
+                        <div class="user-post-image">
+                            <div class="post-img-box">
+                                <img src="/<%=post.image_path%>" alt="">
+                            </div>
+                        </div>
+                        <% } %>
+                  </div>
+                  <div class="post-stat">
+                  <div class="like-comment">
+                     <div class="likes-number">
+                         <i class="fa-solid fa-thumbs-up"></i>
+                         <span><%=post.likes%> Likes</span>
+                     </div>
+                     <div class="comment-number">
+                         <span>100 Comments</span>
+                     </div>
+                  </div>
+                  <hr>
+                  <div class="like-share-comment">
+                       <div class="like">
+                         <i class="fa-solid fa-thumbs-up likei"></i>
+                         <span>Like</span>
+                       </div>
+                       <div class="comment">
+                         <i class="fa-solid fa-comment"></i>
+                         <span>Comment</span>
+                       </div>
+                       <div class="share">
+                         <i class="fa-solid fa-paper-plane"></i>
+                         <span>Share</span>
+                       </div>
+                  </div>
+                  </div>
+                  <div class="sharethis-inline-share-buttons post-share"></div>
+                  <div class="post-comments">
+                     <div class="post-comments-container">
+                     <div class="add-reveiew">
+                         <div class="add-reveiew-container">
+                             <form id="add-review" action="" method="post">
+                             <input type="hidden" name="articleId" value="">
+                             <div class="text-box">
+                                     <textarea name="comment" id="new-reveiew" cols="40" rows="5" placeholder="add a comment"></textarea>
+                                     <div class="new-ok-cnc-btn">
+                                         <button type="submit" class="new-ok-btn">Submit</button>
+                                         
+                                     </div>
+                                     </div>
+                                 </form>
+                             </div>
+                     </div>
+                     <div class="reveiew-container">
+                         <div class="reveiew-name-rating">
+                             <div class="reveiew-name">
+                              Sahil Shelavale
+                              
+                             </div>
+                             <div class="review-date-delete">
+                               <div class="review-date">
+                                 1 July 2024 at 08:12 pm
+                             </div>
+                           
+                             <form id="commentDel" action="" method="post">
+                               <input type="hidden" id="commentId" value="">
+                             <div class="review-delete">
+                              <button class="delbtn" type="submit"><i class="fa-solid fa-trash-can"></i></button> 
+                            </div>
+                           </form>
+                            
+                             </div>
+                           
+                         </div>
+                    
+                     
+                         <div class="reveiew-para">
+                          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora sunt a voluptatem dolore in commodi veritatis eligendi voluptate magnam iusto rerum error laborum facilis, dolorem, ratione fugit atque assumenda harum, sed ex pariatur. Dolores culpa minima voluptate ab consequuntur eveniet harum! Corporis totam expedita, at culpa similique assumenda omnis possimus!</p>
+                         </div>
+                         <div class="lawyer-reply">
+                          <div class="reply-btn">
+                          <div class="reply-btn-1">
+                              <i class="fa-solid fa-reply "></i>
+                              <span class="reply-btn-span" data-comment-id="">Reply</span>
+                          </div>
+                          <div class="reply-btn-2">
+                              <span class="show-reply-btn" data-comment-id="">Show replies</span>
+                              <span class="hide-reply-btn" data-comment-id="">Hide replies</span>
+                          </div>
+                          </div>
+                          <div class="lawyer-reply-para" data-comment-id="" >
+                              <form id="add-reply" method="post" action="">
+                                  <input type="hidden" name="" value="">
+                                  <textarea class="boxcolor" name="content" id="reply-para" cols="40" rows="5"></textarea>
+                                  <div class="btn-ok-cnc">
+                                      <button type="submit" class="ok-btn">Submit</button>
+                                      <div class="cnc-btn" data-comment-id="">Cancel</div>
+                                  </div>
+                              </form>
+                          </div>
+                          
+                          <div class="lawyer-previous-reply" data-comment-id="">
+                             <div class="reply"></div>
+                              <div class="p-reply" id="p-reply-1">
+                               <div class="p-reply-name-date">
+                                 <div class="p-reply-name">
+                                  <span class="">User1
+                                 <span class="author-label"></span></span>
+                                 </div>
+                                 <div class="p-reply-date-delete">
+                                   <div class="p-reply-date">
+                                     <span>  1 July 2024 at 08:12 pm</span>     
+                                   </div>
+                                  
+                                   <form action="" id="replyDel" method="post">
+                                     <input type="hidden" id="replyId" value="">
+                                   <div class="p-reply-delete">
+                                    <button class="delbtn" type="submit"><i class="fa-solid fa-trash-can"></i></button> 
+                                   </div>
+
+                                 </form>
+                               
+                                 </div>
+                                </div> 
+                                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil, ea. Inventore nisi corrupti nostrum explicabo veniam! Fugiat commodi nostrum sint architecto consequuntur voluptates, sit vero magni rerum a eius recusandae corrupti eos quidem iure nihil, dolorem perspiciatis voluptatibus accusantium nam facere autem cupiditate! Similique, adipisci iure earum distinctio eaque et?</p>
+                              </div>
+                          </div>
+                        
+                      </div>
+                     </div>
+                     </div>
+                  </div>
+                   </div>
+                   <hr>
+                </div>  
+              
+                
+                 
+            </div>
+            <%  }) %>
+            <div class="suggestion-container followers-list ">
+                <div class="s-heading">
+                    <div class="followers-text">
+                    <span>Followers</span><div class="cancel-form"><i class="fa-solid fa-xmark" id="cancel-follower"></i></div>
+                    </div>
+                    <hr>
+                    <div class="search-box-container">
+                        <div class="search-box">
+                         <form action="" method="get">
+                           <input type="search" name="followerSearch" placeholder="Search" id="followerSearch" oninput="fetchFollowerResults()">
+                           <button class="ipc-submit" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                           </form>
+                        </div>
+                      </div>
+                </div>
+               
+                <div class="s-content" id="followerSearchResults">
+                    <% followers.forEach(follower => { %>
+                        <div class="suggestion-account">
+                            <div class="profile-name">
+                                <div class="profile-container">
+                                    <div class="profile-image">
+                                        <img src="../uploads/avatar.png" alt="">
+                                    </div>
+                                </div>
+                                
+                                <div class="user-name-day">
+                                     <div class="user-name"><a href="/community/user-profile?id=<%=follower.follower_id%>"><%=follower.follower_name%></a></div>
+                                </div>
+    
+                                </div>
+                                <!-- <div class="follow-container">
+                                    <div class="follow-btn">Follow</div>
+                                    <div class="follow-icon"><i class="fa-solid fa-user-plus"></i></div>
+                                </div> -->
+                          </div>
+                    <% }) %>
+
+                   
+                 
+              
+                   
+                     
+                </div>
+            </div>
+            <div class="suggestion-container following-list ">
+                <div class="s-heading">
+                    <div class="followers-text">
+                    <span>Following</span><div class="cancel-form"><i class="fa-solid fa-xmark" id="cancel-following"></i></div>
+                    </div>
+                    <hr>
+                    <div class="search-box-container">
+                        <div class="search-box">
+                         <form action="" method="get">
+                            <input type="search" name="followingSearch" placeholder="Search" id="followingSearch" oninput="fetchFollowingResults()">
+                           <button class="ipc-submit" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                           </form>
+                        </div>
+                      </div>
+                </div>
+               
+                <div class="s-content" id="followingSearchResults">
+                    <% following.forEach(following=>{ %>
+                        <div class="suggestion-account">
+                            <div class="profile-name">
+                                <div class="profile-container">
+                                    <div class="profile-image">
+                                        <img src="../uploads/avatar.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="user-name-day">
+                                     <div class="user-name"><a href="/community/user-profile?id=<%=following.following_id%>"><%=following.following_name%></a></div>
+                                   
+                                     
+                                </div>
+                                </div>
+                          </div>
+                   <% }) %>
+                    
+                   
+                   
+                     
+                </div>
+            </div>
+            <div class="suggestion-container followed-by-list ">
+                <div class="s-heading">
+                    <div class="followers-text">
+                    <span>Followers</span><div class="cancel-form"><i class="fa-solid fa-xmark" id="cancel-followed-by"></i></div>
+                    </div>
+                    <hr>
+                    <div class="search-box-container">
+                        <div class="search-box">
+                         <form action="" method="get">
+                           <input type="search" name="search" placeholder="Search" id="search">
+                           <button class="ipc-submit" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                           </form>
+                        </div>
+                      </div>
+                </div>
+               
+                <div class="s-content">
+                    <% mutuals.forEach(mutual=> {%>
+                  
+                      <div class="suggestion-account">
+                        <div class="profile-name">
+                            <div class="profile-container">
+                                <div class="profile-image">
+                                    <img src="../uploads/avatar.png" alt="">
+                                </div>
+                            </div>
+                            <div class="user-name-day">
+                                 <div class="user-name"><%=mutual.mutual_lawyer_name%></div>
+                            </div>
+                            </div>
+                            <!-- <div class="follow-container">
+                                <div class="follow-btn">Follow</div>
+                                <div class="follow-icon"><i class="fa-solid fa-user-plus"></i></div>
+                            </div> -->
+                      </div>
+                      <% }) %>
+                     
+                   
+                     
+                </div>
+            </div>
+            <div class="form-container-0">
+                <div class="form-container"> 
+                    <a href="#" class="close">&times;</a>
+                    <div class="form-headings">
+                     <h2>Enter details to update</h2>
+                    </div>
+                    <div class="wrapper">
+                        <form action="/lawyerAccount" id="user-account-form" method="post" enctype="multipart/form-data">
+                            <div class="input-fields">
+                                  <div class="input-field if-field">
+                                    <input type="file" name="image" id="update-img" placeholder="Upload your image">
+                                   
+                                 </div>
+
+                                <div class="input-field if-field bio">
+                                    <textarea name="bio" id="update-bio" cols="30" rows="10" placeholder="Update Bio"></textarea>
+                                </div>
+                              
+                               
+                            </div>
+                            <div class="btn-container">
+                                <div class="btn-layer"></div>
+                     <input type="submit" value="Submit" class="submit-btn" id="details-submit-btn">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="delete-article-form" class="delete-article-form-container">
+                     
+                <form method="post" id="delArticle-" action="/delArticle?articleId=">
+                    <div class="delete-article-form">
+                       <div class="delete-article-heading">
+                        <h2>Do you want to delete this post ?</h2>
+                       </div>
+                       <div class="delete-yes-no-btn">
+                        <div class="delete-yes-btn">
+                                <button type="submit" id="delete-yes-button">Yes</button>
+                         </div>
+                        <div class="delete-no-btn">
+                            <button type="button" onclick="hideDeleteForm('')" id="delete-no-button">No</button>
+                        </div>
+                       </div>
+                    </div>
+                    </form>
+             </div>
+           
+         </div>
+     </div>
+   <%- include('partials/footer') %>
+          
+    </div>
+  
+     
+    <script >
+
+        //SEARCH BAR FUNCTIONS ---------------------------------------------
+const searchLogo=document.querySelector(".search-logo")
+const navBar=document.querySelector(".nav-menu")
+const searchBar=document.querySelector(" .search-box-container")
+const cancelSearch=document.querySelector(".cancel-search")
+
+searchLogo.onclick=()=>{
+navBar.classList.add("unactive");
+searchLogo.classList.add("unactive-search");
+searchBar.classList.add("search-box-active");
+cancelSearch.classList.add("cancel-search-active");
+}
+
+cancelSearch.onclick=()=>{
+   
+    setTimeout(() => {
+        searchBar.classList.remove("search-box-active");
+        cancelSearch.classList.remove("cancel-search-active");
+        navBar.classList.remove("unactive");
+        searchLogo.classList.remove("unactive-search");
+    }, 100); 
+}
+
+const searchResult = document.querySelector(".search-result-container");
+const searchInput = document.querySelector("#search");
+const searchButton = document.querySelector(".ipc-submit");
+
+ searchInput.onkeyup = () => {
+  
+   if (searchInput.value.trim() === "") {
+     searchResult.classList.remove("search-result-active");
+   } else {
+    searchResult.classList.add("search-result-active");
+   }
+ };
+
+/*
+searchButton.onclick=()=>{
+    if (searchInput.value.trim() === "") {
+    searchResult.classList.remove("search-result-active");
+  } else {
+    searchResult.classList.add("search-result-active");
+  }
+} */
+
+
+
+searchButton.addEventListener("click", (e) => {
+  e.preventDefault(); 
+  
+});
+
+
+searchInput.addEventListener("input", () => {
+  
+  if (searchInput.value.trim() === "") {
+    searchResult.classList.remove("search-result-active");
+  }
+});
+
+document.getElementById('search').addEventListener('input', async function () {
+    const query = this.value;
+
+    if (query.trim() === '') {
+        document.querySelector('.search-results').innerHTML = ''; // Clear results
+        return;
+    }
+
+    try {
+        const response = await fetch(`/community/search?search=${encodeURIComponent(query)}`);
+        const results = await response.json();
+        console.log(results);
+        const resultsContainer = document.querySelector('.search-results');
+        resultsContainer.innerHTML = ''; // Clear previous results
+       
+        results.forEach(result => {
+            console.log(result);
+            const resultHTML = `
+                <div class="search-result-account">
+                    <div class="search-profile-image-container">
+                        <div class="search-profile-image">
+                            <img src="${result.image || '../uploads/avatar.png'}" alt="${result.name}">
+                        </div>
+                    </div>
+                    <div class="search-profile-name">
+                       <a href="/community/user-profile?id=${result.id}"> <div class="search-user-name">${result.name}</div></a>
+                       
+                        
+                    </div>
+                </div>
+            `;
+            resultsContainer.insertAdjacentHTML('beforeend', resultHTML);
+        });
+    } catch (err) {
+        console.error('Error fetching search results:', err);
+    }
+});
+//-----------------------------------------------------------------
+
+
+  const followUser = document.querySelector("#follow-user");
+  if(followUser){
+    followUser.onclick = async () => {
+    try {
+        const lawyerId = new URLSearchParams(window.location.search).get('id');
+      const response = await fetch("/community/follow", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({lawyerId}),
+      });
+      const result = await response.json();
+      console.log(result);
+      if(result.success){
+
+        if (result.follow) {
+        followUser.innerText = "Following";
+      } else {
+        followUser.innerText = "Follow";
+      }
+
+      }else{
+        console.error("Error :", result.message);
+      }
+     
+    } catch (error) {
+        console.error("Error : ", error);
+    }
+  }
+  }
+  
+
+const follower=document.querySelector('.user-followers');
+const followerList =document.querySelector('.followers-list');
+const cancelFollower = document.querySelector('#cancel-follower');
+// const body=document.querySelector(".body");
+
+follower.onclick = () => {
+    followerList.classList.toggle("follower-active")
+    document.body.classList.toggle("body-active")
+}
+cancelFollower.onclick = ()=>{
+    followerList.classList.remove("follower-active")
+    document.body.classList.remove("body-active")
+}
+const following=document.querySelector('.user-following');
+const followingList =document.querySelector('.following-list');
+const cancelFollowing = document.querySelector('#cancel-following');
+
+
+following.onclick = () => {
+    followingList.classList.toggle("follower-active")
+    document.body.classList.toggle("body-active")
+}
+cancelFollowing.onclick = ()=>{
+    followingList.classList.remove("follower-active")
+    document.body.classList.remove("body-active")
+}
+
+
+const moreFollowers=document.querySelector(".more-followers")
+const followedByList=document.querySelector(".followed-by-list")
+const CancelFollowedBy=document.querySelector("#cancel-followed-by")
+
+moreFollowers.onclick = () => {
+    followedByList.classList.toggle("follower-active")
+    document.body.classList.toggle("body-active")
+}
+CancelFollowedBy.onclick = ()=>{
+    followedByList.classList.remove("follower-active")
+    document.body.classList.remove("body-active")
+}
+
+
+
+const userPost= document.querySelector(".user-post")
+const postInfo=document.querySelector(".user-full-post-info")
+
+
+
+
+const cancelButtons = document.querySelectorAll(".cnc-btn");
+ const showReplyButtons = document.querySelectorAll(".show-reply-btn");
+ const hideReplyButtons = document.querySelectorAll(".hide-reply-btn");
+ const replyButtons = document.querySelectorAll(".reply-btn-span");
+ 
+
+ showReplyButtons.forEach(button=>{
+    button.onclick = () => {
+        const commentId = button.dataset.commentId;
+        const replies = document.querySelectorAll(`.lawyer-previous-reply[data-comment-id='${commentId}']`);
+        
+        replies.forEach(reply => {
+            reply.classList.add("para-active")
+        })
+    }
+ })
+
+ hideReplyButtons.forEach(button=>{
+    button.onclick = () => {
+        const commentId = button.dataset.commentId;
+        const replies = document.querySelectorAll(`.lawyer-previous-reply[data-comment-id='${commentId}']`);
+        replies.forEach(reply => {
+            reply.classList.remove("para-active")
+        })
+    }
+ })
+
+ replyButtons.forEach(button=>{
+   button.onclick = () => {
+      const commentId = button.dataset.commentId;
+      const replies = document.querySelectorAll(`.lawyer-reply-para[data-comment-id='${commentId}']`);
+      replies.forEach(reply=> {
+        reply.classList.add("para-active")
+      })
+   }
+ })
+ 
+ cancelButtons.forEach(button=>{
+    button.onclick = () => {
+        const commentId = button.dataset.commentId;
+        const replies = document.querySelectorAll(`.lawyer-reply-para[data-comment-id='${commentId}']`);
+        replies.forEach(reply=> {
+            reply.classList.remove("para-active")
+        })
+    }
+ })
+
+ const comment =document.querySelector(".comment")
+ const postComments=document.querySelector(".post-comments")
+
+comment.onclick=()=>{
+postComments.classList.toggle("post-comments-active")
+comment.classList.toggle("comment-share-active")
+}
+
+const like=document.querySelector(".like")
+const likeI=document.querySelector(".likei")
+like.onclick=()=>{
+    likeI.classList.toggle("like-active")
+}
+
+const share=document.querySelector(".share")
+const shareContainer=document.querySelector(".post-share")
+share.onclick=()=>{
+    shareContainer.classList.toggle("post-share-active")
+    share.classList.toggle("comment-share-active")
+}
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const formContainer0 = document.querySelector(".form-container-0");
+    const close = document.querySelector(".close");
+    const editProfileBtn = document.getElementById("edit-profile");
+
+    if (!formContainer0) {
+        console.error("Error: .form-container-0 not found!");
+        return;
+    }
+
+    if (!editProfileBtn) {
+        console.error("Error: Edit Profile button not found!");
+        return;
+    }
+
+    const openEditProfileForm = () => {
+        console.log("Opening Edit Profile form...");
+        formContainer0.classList.add('form-active');
+    };
+
+    editProfileBtn.addEventListener("click", openEditProfileForm);
+
+    if (close) {
+        close.addEventListener("click", () => {
+            console.log("Closing Edit Profile form...");
+            formContainer0.classList.remove('form-active');
+        });
+    } else {
+        console.warn("Warning: Close button not found!");
+    }
+});
+
+
+
+ 
+const customSelectsG = document.querySelectorAll(".custom-select-g");
+const selectButtonsG = document.querySelectorAll(".select-button-g");
+const selectedValuesG = document.querySelectorAll(".selected-value-g");
+const optionsListsG = document.querySelectorAll(".select-dropdown-g");
+
+
+const stateToCities = {
+    andhra_pradesh : ["Anantapur","Chittoor","East Godavari","Guntur","Kadapa","Krishna","Kurnool","Prakasam","Nellore","Srikakulam","Visakhapatnam","Vizianagaram","West Godavari"],
+    arunachal_pradesh : ["Anjaw","Changlang","Dibang Valley","East Kameng","East Siang","Kra Daadi","Kurung Kumey","Lohit","Longding","Lower Dibang Valley","Lower Subansiri","Namsai","Papum Pare","Siang","Tawang","Tirap","Upper Siang","Upper Subansiri","West Kameng","West Siang","Itanagar"],
+    assam : ["Baksa","Barpeta","Biswanath","Bongaigaon","Cachar","Charaideo","Chirang","Darrang","Dhemaji","Dhubri","Dibrugarh","Goalpara","Golaghat","Hailakandi","Hojai","Jorhat","Kamrup Metropolitan","Kamrup (Rural)","Karbi Anglong","Karimganj","Kokrajhar","Lakhimpur","Majuli","Morigaon","Nagaon","Nalbari","Dima Hasao","Sivasagar","Sonitpur","South Salmara Mankachar","Tinsukia","Udalguri","West Karbi Anglong"],
+    bihar : ["Araria","Arwal","Aurangabad","Banka","Begusarai","Bhagalpur","Bhojpur","Buxar","Darbhanga","East Champaran","Gaya","Gopalganj","Jamui","Jehanabad","Kaimur","Katihar","Khagaria","Kishanganj","Lakhisarai","Madhepura","Madhubani","Munger","Muzaffarpur","Nalanda","Nawada","Patna","Purnia","Rohtas","Saharsa","Samastipur","Saran","Sheikhpura","Sheohar","Sitamarhi","Siwan","Supaul","Vaishali","West Champaran"],
+    chhattisgarh : ["Balod","Baloda Bazar","Balrampur","Bastar","Bemetara","Bijapur","Bilaspur","Dantewada","Dhamtari","Durg","Gariaband","Janjgir Champa","Jashpur","Kabirdham","Kanker","Kondagaon","Korba","Koriya","Mahasamund","Mungeli","Narayanpur","Raigarh","Raipur","Rajnandgaon","Sukma","Surajpur","Surguja"],
+    goa : ["North Goa","South Goa"],
+    gujarat : ["Ahmedabad","Amreli","Anand","Aravalli","Banaskantha","Bharuch","Bhavnagar","Botad","Chhota Udaipur","Dahod","Dang","Devbhoomi Dwarka","Gandhinagar","Gir Somnath","Jamnagar","Junagadh","Kheda","Kutch","Mahisagar","Mehsana","Morbi","Narmada","Navsari","Panchmahal","Patan","Porbandar","Rajkot","Sabarkantha","Surat","Surendranagar","Tapi","Vadodara","Valsad"],
+    haryana : ["Ambala","Bhiwani","Charkhi Dadri","Faridabad","Fatehabad","Gurugram","Hisar","Jhajjar","Jind","Kaithal","Karnal","Kurukshetra","Mahendragarh","Mewat","Palwal","Panchkula","Panipat","Rewari","Rohtak","Sirsa","Sonipat","Yamunanagar"],
+    himachal_pradesh : ["Bilaspur","Chamba","Hamirpur","Kangra","Kinnaur","Kullu","Lahaul Spiti","Mandi","Shimla","Sirmaur","Solan","Una"],
+    jammu_kashmir : ["Anantnag","Bandipora","Baramulla","Budgam","Doda","Ganderbal","Jammu","Kargil","Kathua","Kishtwar","Kulgam","Kupwara","Leh","Poonch","Pulwama","Rajouri","Ramban","Reasi","Samba","Shopian","Srinagar","Udhampur"],
+ jharkhand : ["Bokaro","Chatra","Deoghar","Dhanbad","Dumka","East Singhbhum","Garhwa","Giridih","Godda","Gumla","Hazaribagh","Jamtara","Khunti","Koderma","Latehar","Lohardaga","Pakur","Palamu","Ramgarh","Ranchi","Sahebganj","Seraikela Kharsawan","Simdega","West Singhbhum"],
+ karnataka : ["Bagalkot","Bangalore Rural","Bangalore Urban","Belgaum","Bellary","Bidar","Vijayapura","Chamarajanagar","Chikkaballapur","Chikkamagaluru","Chitradurga","Dakshina Kannada","Davanagere","Dharwad","Gadag","Gulbarga","Hassan","Haveri","Kodagu","Kolar","Koppal","Mandya","Mysore","Raichur","Ramanagara","Shimoga","Tumkur","Udupi","Uttara Kannada","Yadgir"],
+ kerala : ["Alappuzha","Ernakulam","Idukki","Kannur","Kasaragod","Kollam","Kottayam","Kozhikode","Malappuram","Palakkad","Pathanamthitta","Thiruvananthapuram","Thrissur","Wayanad"],
+ madhya_pradesh : ["Agar Malwa","Alirajpur","Anuppur","Ashoknagar","Balaghat","Barwani","Betul","Bhind","Bhopal","Burhanpur","Chhatarpur","Chhindwara","Damoh","Datia","Dewas","Dhar","Dindori","Guna","Gwalior","Harda","Hoshangabad","Indore","Jabalpur","Jhabua","Katni","Khandwa","Khargone","Mandla","Mandsaur","Morena","Narsinghpur","Neemuch","Panna","Raisen","Rajgarh","Ratlam","Rewa","Sagar","Satna",
+"Sehore","Seoni","Shahdol","Shajapur","Sheopur","Shivpuri","Sidhi","Singrauli","Tikamgarh","Ujjain","Umaria","Vidisha"],
+maharashtra : ["Ahmednagar","Akola","Amravati","Aurangabad","Beed","Bhandara","Buldhana","Chandrapur","Dhule","Gadchiroli","Gondia","Hingoli","Jalgaon","Jalna","Kolhapur","Latur","Mumbai City","Mumbai Suburban","Nagpur","Nanded","Nandurbar","Nashik","Navi Mumbai","Osmanabad","Palghar","Parbhani","Pune","Raigad","Ratnagiri","Sangli","Satara","Sindhudurg","Solapur","Thane","Wardha","Washim","Yavatmal"],
+manipur : ["Bishnupur","Chandel","Churachandpur","Imphal East","Imphal West","Jiribam","Kakching","Kamjong","Kangpokpi","Noney","Pherzawl","Senapati","Tamenglong","Tengnoupal","Thoubal","Ukhrul"],
+meghalaya : ["East Garo Hills","East Jaintia Hills","East Khasi Hills","North Garo Hills","Ri Bhoi","South Garo Hills","South West Garo Hills","South West Khasi Hills","West Garo Hills","West Jaintia Hills","West Khasi Hills"],
+mizoram : ["Aizawl","Champhai","Kolasib","Lawngtlai","Lunglei","Mamit","Saiha","Serchhip","Aizawl","Champhai","Kolasib","Lawngtlai","Lunglei","Mamit","Saiha","Serchhip"],
+nagaland : ["Dimapur","Kiphire","Kohima","Longleng","Mokokchung","Mon","Peren","Phek","Tuensang","Wokha","Zunheboto"],
+odisha : ["Angul","Balangir","Balasore","Bargarh","Bhadrak","Boudh","Cuttack","Debagarh","Dhenkanal","Gajapati","Ganjam","Jagatsinghpur","Jajpur","Jharsuguda","Kalahandi","Kandhamal","Kendrapara","Kendujhar","Khordha","Koraput","Malkangiri","Mayurbhanj","Nabarangpur","Nayagarh","Nuapada","Puri","Rayagada","Sambalpur","Subarnapur","Sundergarh"],
+punjab : ["Amritsar","Barnala","Bathinda","Faridkot","Fatehgarh Sahib","Fazilka","Firozpur","Gurdaspur","Hoshiarpur","Jalandhar","Kapurthala","Ludhiana","Mansa","Moga","Mohali","Muktsar","Pathankot","Patiala","Rupnagar","Sangrur","Shaheed Bhagat Singh Nagar","Tarn Taran"],
+rajasthan : ["Ajmer","Alwar","Banswara","Baran","Barmer","Bharatpur","Bhilwara","Bikaner","Bundi","Chittorgarh","Churu","Dausa","Dholpur","Dungarpur","Ganganagar","Hanumangarh","Jaipur","Jaisalmer","Jalore","Jhalawar","Jhunjhunu","Jodhpur","Karauli","Kota","Nagaur","Pali","Pratapgarh","Rajsamand","Sawai Madhopur","Sikar","Sirohi","Tonk","Udaipur"],
+sikkim : ["East Sikkim","North Sikkim","South Sikkim","West Sikkim"],
+tamil_nadu : ["Ariyalur","Chennai","Coimbatore","Cuddalore","Dharmapuri","Dindigul","Erode","Kanchipuram","Kanyakumari","Karur","Krishnagiri","Madurai","Nagapattinam","Namakkal","Nilgiris","Perambalur","Pudukkottai","Ramanathapuram","Salem","Sivaganga","Thanjavur","Theni","Thoothukudi","Tiruchirappalli","Tirunelveli","Tiruppur","Tiruvallur","Tiruvannamalai","Tiruvarur","Vellore","Viluppuram","Virudhunagar"],
+telangana : ["Adilabad","Bhadradri Kothagudem","Hyderabad","Jagtial","Jangaon","Jayashankar","Jogulamba","Kamareddy","Karimnagar","Khammam","Komaram Bheem","Mahabubabad","Mahbubnagar","Mancherial","Medak","Medchal","Nagarkurnool","Nalgonda","Nirmal","Nizamabad","Peddapalli","Rajanna Sircilla","Ranga Reddy","Sangareddy","Siddipet","Suryapet","Vikarabad","Wanaparthy","Warangal Rural","Warangal Urban","Yadadri Bhuvanagiri"],
+tripura : ["Dhalai","Gomati","Khowai","North Tripura","Sepahijala","South Tripura","Unakoti","West Tripura"],
+uttar_pradesh : ["Agra","Aligarh","Allahabad","Ambedkar Nagar","Amethi","Amroha","Auraiya","Azamgarh","Baghpat","Bahraich","Ballia","Balrampur","Banda","Barabanki","Bareilly","Basti","Bhadohi","Bijnor","Budaun","Bulandshahr","Chandauli","Chitrakoot","Deoria","Etah","Etawah","Faizabad","Farrukhabad","Fatehpur","Firozabad","Gautam Buddha Nagar","Ghaziabad","Ghazipur","Gonda","Gorakhpur","Hamirpur","Hapur","Hardoi","Hathras","Jalaun","Jaunpur","Jhansi","Kannauj","Kanpur Dehat","Kanpur Nagar","Kasganj","Kaushambi","Kheri","Kushinagar","Lalitpur","Lucknow","Maharajganj","Mahoba","Mainpuri","Mathura","Mau","Meerut","Mirzapur","Moradabad","Muzaffarnagar","Pilibhit","Pratapgarh","Raebareli","Rampur","Saharanpur","Sambhal","Sant Kabir Nagar","Shahjahanpur","Shamli","Shravasti","Siddharthnagar","Sitapur","Sonbhadra","Sultanpur","Unnao","Varanasi"],
+uttarakhand  : ["Almora","Bageshwar","Chamoli","Champawat","Dehradun","Haridwar","Nainital","Pauri","Pithoragarh","Rudraprayag","Tehri","Udham Singh Nagar","Uttarkashi"],
+west_bengal : ["Alipurduar","Bankura","Birbhum","Cooch Behar","Dakshin Dinajpur","Darjeeling","Hooghly","Howrah","Jalpaiguri","Jhargram","Kalimpong","Kolkata","Malda","Murshidabad","Nadia","North 24 Parganas","Paschim Bardhaman","Paschim Medinipur","Purba Bardhaman","Purba Medinipur","Purulia","South 24 Parganas","Uttar Dinajpur"],
+andaman_nicobar_islands : ["Nicobar","North Middle Andaman","South Andaman"],
+chandigarh: ["Chandigarh"],
+dadar_nagar_haveli_daman_diu: ["Dadra Nagar Haveli"],
+daman_diu : ["Daman","Diu"],
+delhi : ["Central Delhi","East Delhi","New Delhi","North Delhi","North East Delhi","North West Delhi","Shahdara","South Delhi","South East Delhi","South West Delhi","West Delhi"],
+ladakh :["Kargil","Leh"],
+lakshadweep : ["Lakshadweep"],
+puducherry : ["Karaikal","Mahe","Puducherry","Yanam"],
+
+
+};
+
+
+function updateCityDropdown(state) {
+    const cityDropdown = document.querySelector("#select-dropdown-2");
+    const citySelectButton = cityDropdown.previousElementSibling;
+    const citySelectedValue = citySelectButton.querySelector(".selected-value-g");
+
+    
+    cityDropdown.innerHTML = "";
+
+    
+    if (stateToCities[state]) {
+        stateToCities[state].forEach(city => {
+            const cityOption = document.createElement("li");
+            cityOption.setAttribute("role", "option-g");
+            cityOption.innerHTML = `
+                <input type="radio" id="${city}" name="city" value="${city}" />
+                <label for="${city}">${city}</label>
+            `;
+            cityDropdown.appendChild(cityOption);
+
+            cityOption.addEventListener("keyup", function(e) {
+                if (e.key === "Enter") {
+                    citySelectedValue.textContent = cityOption.children[1].textContent;
+                    cityDropdown.parentNode.classList.remove("active");
+                }
+            });
+
+            cityOption.addEventListener("click", function(e) {
+                if (e.clientX !== 0 && e.clientY !== 0) {
+                    citySelectedValue.textContent = cityOption.children[1].textContent;
+                    cityDropdown.parentNode.classList.remove("active");
+                }
+            });
+        });
+    }
+
+  
+    citySelectedValue.textContent = "Select city";
+}
+
+
+function enableCityDropdown() {
+    const cityCustomSelect = document.querySelector("#select-dropdown-2").parentNode;
+    cityCustomSelect.classList.remove("disabled");
+}
+
+
+document.querySelector("#select-dropdown-2").parentNode.classList.add("disabled");
+
+
+customSelectsG.forEach((customSelect, index) => {
+    const selectBtnG = selectButtonsG[index];
+    const selectedValueG = selectedValuesG[index];
+    const optionsListG = optionsListsG[index];
+
+    selectBtnG.addEventListener("click", () => {
+        
+        if (!customSelect.classList.contains("disabled")) {
+            customSelect.classList.toggle("active");
+            selectBtnG.setAttribute(
+                "aria-expanded",
+                selectBtnG.getAttribute("aria-expanded") === "true" ? "false" : "true"
+            );
+        }
+    });
+
+    optionsListG.querySelectorAll("li").forEach((option) => {
+        function handler(e) {
+            if ((e.type === "click" && e.clientX !== 0 && e.clientY !== 0) || e.key === "Enter") {
+                selectedValueG.textContent = option.children[1].textContent;
+                customSelect.classList.remove("active");
+
+                
+                if (option.children[0].name === "state") {
+                    updateCityDropdown(option.children[0].value);
+                    enableCityDropdown();
+                }
+            }
+        }
+
+        option.addEventListener("keyup", handler);
+        option.addEventListener("click", handler);
+    });
+});
+
+const customSelects = document.querySelectorAll(".custom-select-1");
+ const selectButtons = document.querySelectorAll(".select-button");
+ const selectedValues = document.querySelectorAll(".selected-value");
+ const optionsLists = document.querySelectorAll(".select-dropdown");
+ 
+
+ customSelects.forEach((customSelect, index) => {
+   const selectBtn = selectButtons[index];
+   const selectedValue = selectedValues[index];
+   const optionsList = optionsLists[index];
+ 
+   selectBtn.addEventListener("click", () => {
+     customSelect.classList.toggle("active");
+     selectBtn.setAttribute(
+       "aria-expanded",
+       selectBtn.getAttribute("aria-expanded") === "true" ? "false" : "true"
+     );
+   });
+ 
+   optionsList.querySelectorAll("li").forEach((option) => {
+    option.addEventListener("click", () => {
+      const selectedOptions = optionsList.querySelectorAll("input[type='checkbox']:checked");
+      let selectedValuesText = "";
+
+      selectedOptions.forEach((selectedOption) => {
+        selectedValuesText += selectedOption.value + ", ";
+      });
+
+      selectedValue.textContent = selectedValuesText.slice(0, -2) ; // Remove trailing comma if no options selected
+    });
+});
+ });
+
+
+
+  const deleteArticle=document.querySelector(".delete-post-btn");
+ const deleteArticleForm=document.querySelector(".delete-article-form-container");
+ const deleteNoBtn=document.getElementById("delete-no-button");
+
+ deleteArticle.onclick=()=>{
+    deleteArticleForm.classList.add("delete-form-active")
+ }
+ deleteNoBtn.onclick=()=>{
+    deleteArticleForm.classList.remove("delete-form-active")
+ }
+
+ 
+//FOLLOWING SEARCH
+// document.getElementById('followingSearch').addEventListener('input', async function () {
+//     event.preventDefault();
+//     const query = document.querySelector("input[name='followingSearch']").value;
+//     console.log(query);
+
+//     if (query.trim() === '') {
+//         document.getElementById('followingSearchResults').innerHTML = ''; // Clear results if search is empty
+//         return;
+//     }
+
+//     try {
+//         const response = await fetch(`/followingSearch?followingSearch=${encodeURIComponent(query)}`);
+//         const results = await response.json();
+//         const resultsContainer = document.getElementById('following-search-results'); // Updated to match container ID
+//         resultsContainer.innerHTML = ''; // Clear previous results
+        
+//         if (results.following.length === 0) {
+//             resultsContainer.innerHTML = '<p>No results found</p>';
+//         } else {
+//             results.following.forEach(following => {
+//                 console.log(following);
+//                 const resultHTML = `
+//                     <div class="suggestion-account">
+//                         <div class="profile-name">
+//                             <div class="profile-container">
+//                                 <div class="profile-image">
+//                                     <img src="../uploads/avatar.png" alt="">
+//                                 </div>
+//                             </div>
+//                             <div class="user-name-day">
+//                                 <div class="user-name">
+//                                     <a href="/community/user-profile?id=${following.following_id}">${following.following_name}</a>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 `;
+//                 resultsContainer.insertAdjacentHTML('beforeend', resultHTML);
+//             });
+//         }
+//     } catch (err) {
+//         console.error('Error fetching following search results:', err);
+//     }
+// });
+
+async function fetchFollowingResults() {
+    const searchInput = document.getElementById('followingSearch').value;
+
+    try {
+        // Make an asynchronous GET request to the server
+       
+        const queryParams = new URLSearchParams(window.location.search);
+        const id = queryParams.get('id');
+        const response = await fetch(`/followingSearch`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', 
+            },
+            body: JSON.stringify({
+            followingSearch: `${searchInput}%`,
+            id: id,
+              }),
+            });
+        const data = await response.json(); // Parse the response JSON
+        console.log(data);
+        // Update the DOM with the search results
+        const resultsContainer = document.getElementById('followingSearchResults');
+        resultsContainer.innerHTML = ''; // Clear previous results
+
+        if (data.following.length > 0) {
+            // Render each user in the result
+            data.following.forEach(user => {
+                const userDiv = `
+                    <div class="suggestion-account">
+                        <div class="profile-name">
+                            <div class="profile-container">
+                                <div class="profile-image">
+                                    <img src="../uploads/avatar.png" alt="profile-image">
+                                </div>
+                            </div>
+                            <div class="user-name-day">
+                                <div class="user-name">
+                                    <a href="/community/user-profile?id=${user.id}">
+                                        ${user.name}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                resultsContainer.insertAdjacentHTML('beforeend', userDiv);
+            });
+        } else {
+            // Show a message when no results are found
+            resultsContainer.innerHTML = '<p>No results found</p>';
+        }
+    } catch (error) {
+        console.error('Error fetching results:', error);
+    }
+}
+
+async function fetchFollowerResults() {
+    const searchInput = document.getElementById('followerSearch').value;
+
+    try {
+        // Make an asynchronous GET request to the server
+        const queryParams = new URLSearchParams(window.location.search);
+        const id = queryParams.get('id');
+        const response = await fetch(`/followersSearch`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', 
+            },
+            body: JSON.stringify({
+            followersSearch: `${searchInput}%`,
+            id: id,
+              }),
+            });
+        const data = await response.json(); // Parse the response JSON
+        console.log(data);
+        // Update the DOM with the search results
+        const resultsContainer = document.getElementById('followerSearchResults');
+        resultsContainer.innerHTML = ''; // Clear previous results
+
+        if (data.followers.length > 0) {
+            // Render each user in the result
+            data.followers.forEach(user => {
+                const userDiv = `
+                    <div class="suggestion-account">
+                        <div class="profile-name">
+                            <div class="profile-container">
+                                <div class="profile-image">
+                                    <img src="../uploads/avatar.png" alt="profile-image">
+                                </div>
+                            </div>
+                            <div class="user-name-day">
+                                <div class="user-name">
+                                    <a href="/community/user-profile?id=${user.id}">
+                                        ${user.name}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                resultsContainer.insertAdjacentHTML('beforeend', userDiv);
+            });
+        } else {
+            // Show a message when no results are found
+            resultsContainer.innerHTML = '<p>No results found</p>';
+        }
+    } catch (error) {
+        console.error('Error fetching results:', error);
+    }
+}
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

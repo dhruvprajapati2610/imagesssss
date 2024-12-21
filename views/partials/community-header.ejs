@@ -1,0 +1,73 @@
+<header class="header">
+    <nav class="nav container">
+         <div class="nav-data">
+             <img class="logo" src="/images/logo.png" height="69px" alt="" srcset="" style="padding-left: 35px;">
+             
+             <div class="search-box-container">
+                <div class="search-box">
+                 <form action="" method="get">
+                   <input type="search" name="search" placeholder="Search" id="search">
+                   <div class="ipc-submit" ><i class="fa-solid fa-magnifying-glass"></i></div>
+                   </form>
+                </div>
+                <div class="search-result-container">
+                    <div class="search-results">
+                    
+                       
+                    </div>
+                </div>
+              </div>
+              <div class="search-logo">
+                <i class="fa-solid fa-magnifying-glass "></i>
+                <span>Search</span>
+                <i class="fa-solid fa-xmark cancel-search"></i>
+                </div>
+         </div>
+         <div class="nav-menu" id="nav-menu">
+             <ul class="nav-list">
+                 
+             
+                 <li class="dropdown-item item-5">
+                   <a href="/community">
+                    <div class="nav-link dropdown-button nav-link-home" href="" style="<% if (currentRoute === '/community') { %>color: goldenrod;<% } %>"> <i class="fa-solid fa-house"></i><span>Home</span></div> 
+                   </a>
+                    
+                    
+                 </li> 
+                 <li class="dropdown-item item-5">
+                   <a href="/notifications">
+                    <div class="nav-link dropdown-button nav-link-notification" href="" style="<% if (currentRoute === '/notifications') { %>color: goldenrod;<% } %>"> 
+                        <div class="notification-icon">
+                            <a href="/notifications">   <i class="fa-solid fa-bell"></i>
+                            <%    if(notificationCount!=0){ %>
+                                <span><%=notificationCount%></span>
+                             <%   }  %> 
+                      
+                        </div></a>
+                        <span>Notification </span>
+                    </div> 
+                   </a>
+                    
+                    
+                 </li>
+                 <li class="dropdown-item item-5">
+                   <a href="/community/user-profile?id=<%=userId%>">
+                    <div class="nav-link dropdown-button nav-link-account" href="" style="<% if (currentRoute === '/community/user-profile') { %>color: goldenrod;<% } %>"> <i class="fa-solid fa-user"></i><span>Account</span></div>
+                   </a>
+                    
+                    
+                 </li>  
+                 <li class="dropdown-item item-5">
+                   <a href="/">
+                    <div class="nav-link dropdown-button nav-link-website" href=""> <i class="fa-solid fa-arrow-right-to-bracket"></i><span>iLegalAdvice</span></div> 
+                   </a>
+                   
+                    
+                 </li> 
+                 
+                
+               </ul>
+         </div>
+       
+    </nav>
+</header> 

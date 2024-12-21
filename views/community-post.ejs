@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iLegal Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.1.0/remixicon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.1.0/remixicon.css">
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=66793db46b65c10019188ef5&product=inline-share-buttons&source=platform" async="async"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto+Slab&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/community-post2.css">  
+
+    
+        
+</head>
+<body>
+  
+    <%- include('partials/community-header') %>
+  <div class="body">   
+     <div class="main-body">
+        <div class="sub-body">
+            
+           <div class="post-section-0">
+             <div class="post-section">
+                
+                 <div class="user-post-container">
+                   <div class="user-post">
+                     <div class="user-info">
+                        <div class="profile-name">
+                        <div class="profile-container">
+                            <div class="profile-image">
+                                <img src="<%=profileImage%>" alt="">
+                            </div>
+                        </div>
+                        <div class="user-name-day">
+                             <div class="user-name"><a href="/community/user-profile?id=<%= lawyerId %>"><%=post.lawyer_name%></a></div>
+                             <div class="post-day"><%= formatDate(post.created_at) %></div> 
+                             
+                        </div>
+                        </div>
+                        <% if(userId === lawyerId) { %>
+                          <div class="follow-container">
+                            <!--Icon for edit-profile-->
+                          
+                          </div>
+                          <% } else { %>
+                            <% if(follow) { %>
+                               <div class="follow-container">
+                                   <div class="follow-btn" onclick="toggleFollow(<%= lawyerId %>)">Following</div>
+                                   <div class="follow-icon"><i class="fa-solid fa-user-plus"></i></div>
+                               </div>
+                            <% } else { %>
+                               <div class="follow-container">
+                                   <div class="follow-btn" onclick="toggleFollow(<%= lawyerId %>)">Follow</div>
+                                   <div class="follow-icon"><i class="fa-solid fa-user-plus"></i></div>
+                               </div>
+                            <% } %>
+                         <% } %>
+                         
+                         
+                         
+                         
+                         
+                      
+                     </div>
+                     <div class="post-info">
+                      <input type="hidden" name="postId" value="<%=post.id%>">
+                         <div class="post-para">
+                            <p><%=post.content%></p>
+                         </div>
+                         <div class="user-post-image">
+                            <div class="post-img-box">
+                                <img src="<%=post.image_path%>" alt="">
+                            </div>
+                         </div>
+                     </div>
+                     <div class="post-stat">
+                     <div class="like-comment">
+                        <div class="likes-number">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                           <% if(likeCount == 1){ %>
+                            <span class="likeCount"><%=likeCount%> Like</span>
+                            <% } else if (likeCount > 1) { %>
+                            <span class="likeCount"><%=likeCount%> Likes</span>
+                            <% } else { %>
+                              <span class="likeCount"><%=likeCount%> Likes</span>
+                              <% } %>
+                        </div>
+                        <div class="comment-number">
+                            <span><%= commentCount %> Comments</span>
+                        </div>
+                     </div>
+                     <hr>
+                     <div class="like-share-comment">
+                       <% if(like){ %>
+                          <div class="like">
+                            <i class="fa-solid fa-thumbs-up likei like-active"></i>
+                            <span id="like">Liked</span>
+                          </div>
+                      <%  }else{ %>
+                        <div class="like">
+                          <i class="fa-solid fa-thumbs-up likei"></i>
+                          <span id="like">Like</span>
+                        </div>
+                        <% } %>
+                          <div class="comment">
+                            <i class="fa-solid fa-comment"></i>
+                            <span>Comment</span>
+                          </div>
+                          <div class="share">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Share</span>
+                          </div>
+                     </div>
+                     </div>
+                     <div class="sharethis-inline-share-buttons post-share"></div>
+                     <div class="post-comments">
+                        <div class="post-comments-container">
+                        <div class="add-reveiew">
+                            <div class="add-reveiew-container">
+                                <form id="add-review" action="/community/review" method="post">
+                                <input type="hidden" name="postId" id="postId" value="<%=post.id%>">
+                                <div class="text-box">
+                                        <textarea id="new-review" name="comment" id="new-reveiew" cols="40" rows="5" placeholder="add a comment"></textarea>
+                                        <div class="new-ok-cnc-btn">
+                                          <button type="button" id="submit-comment" class="new-ok-btn">Submit</button>
+                                            
+                                        </div>
+                                        </div>
+                                    </form>
+                                    
+                                </div>
+                        </div>
+                        <div id="comments-container">
+                          <% comments.forEach(comment => { %>
+                            <div class="reveiew-container" id="comment-<%= comment.id %>">
+                                <div class="reveiew-name-rating">
+                                    <div class="reveiew-name">
+                                      <a href="/community/user-profile?id=<%=comment.user_id%>">
+                                        <%= comment.lawyer_name %>
+                                      </a>
+                                     
+                                     
+                                    </div>
+                                    <div class="review-date-delete">
+                                      <div class="review-date">
+                                        <%= formatDate(comment.created_at) %>
+                                    </div>
+                                <% if(userId === comment.user_id){ %>
+                                  <!-- <div class="review-delete">
+                                   
+                                    <button 
+                                        class="delbtn delete-comment" 
+                                        type="button" 
+                                        data-comment-id="<%= comment.id %>">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </div> -->
+                                <div class="review-delete">
+                                  <button class="delbtn" type="submit" data-comment-id="<%= comment.id %>"><i
+                                          class="fa-solid fa-trash-can"></i></button>
+                              </div>
+                                  <% } %>
+                                  <div  class="delete-article-form-container" id="delete-form-<%= comment.id %>" style="display:none;" >
+                                    <form method=""  action="">
+                                        <div class="delete-article-form">
+                                           <div class="delete-article-heading">
+                                            <h2>Do you want to delete this comment ?</h2>
+                                           </div>
+                                           <div class="delete-yes-no-btn">
+                                            <div class="delete-yes-btn">
+                                                    <button class="delete-comment" type="submit" id="delete-yes-button"  data-comment-id="<%= comment.id %>">Yes</button>
+                                             </div>
+                                            <div class="delete-no-btn">
+                                                <button type="button" id="delete-no-button" data-comment-id="<%= comment.id %>">No</button>
+                                            </div>
+                                           </div>
+                                        </div>
+                                        </form>
+                                   </div>
+                                  
+                                   
+                                    </div>
+                                  
+                                </div>
+                           
+                            
+                                <div class="reveiew-para">
+                                 <p><%= comment.content %></p>
+                                </div>
+                                <div class="lawyer-reply">
+                                 <div class="reply-btn">
+                                 <div class="reply-btn-1">
+                                     <i class="fa-solid fa-reply "></i>
+                                     <span class="reply-btn-span" onclick="replyFormShow(<%=comment.id%>)" data-comment-id="<%=comment.id%>">Reply</span>
+                                 </div>
+                                 <div class="reply-btn-2">
+                                     <span class="show-reply-btn" data-comment-id="<%=comment.id%>" onclick="showReplies(<%=comment.id%>)">Show replies</span>
+                                     <span class="hide-reply-btn" data-comment-id="<%=comment.id%>" onclick="hideReplies(<%=comment.id%>)">Hide replies</span>
+                                 </div>
+                                 </div>
+                                 <div class="lawyer-reply-para" data-comment-id="<%=comment.id%>" >
+                                     <form id="add-reply" method="post">
+                                         <input type="hidden" name="" value="">
+                                         <textarea class="boxcolor reply-para-<%=comment.id%>" name="content" id="reply-para" cols="40" rows="5"></textarea>
+                                         <div class="btn-ok-cnc">
+                                             <button type="button" onclick="addReply(event, <%=comment.id%>)" class="ok-btn">Submit</button>
+                                             <div onclick="cancelReplyForm(<%=comment.id%>)" class="cnc-btn" data-comment-id="<%=comment.id%>">Cancel</div>
+                                         </div>
+                                     </form>
+                                 </div>
+                                 <div id="replies-container-<%=comment.id%>">
+                                 <% comment.replies.forEach(reply => { %>
+                                 <div class="lawyer-previous-reply" id="lawyer-previous-<%=reply.id%>" data-comment-id="<%= reply.comment_id %>">
+                                    <div class="reply"></div>
+                                     <div class="p-reply" id="p-reply-1">
+                                      <div class="p-reply-name-date">
+                                        <div class="p-reply-name">
+                                         <span class=""><% reply.lawyer_name %>
+                                        <span class="author-label"></span></span>
+                                        </div>
+                                        <div class="p-reply-date-delete">
+                                          <div class="p-reply-date">
+                                            <span><%= formatDate(reply.created_at) %></span>     
+                                          </div>
+                                        <% if(reply.user_id === userId) { %>
+                                          <!-- <div class="review-delete">
+                                           
+                                            <button 
+                                                class="delbtn delete-comment" 
+                                                type="button" 
+                                                data-comment-id="<%= comment.id %>">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                        </div> -->
+                                        <div class="p-reply-delete">
+                                          <button class="replydelbtn" type="button" onclick="showDeleteReplyForm(<%=reply.id%>)">
+                                              <i class="fa-solid fa-trash-can"></i>
+                                          </button>
+                                      </div>
+                                      
+                                        <% } %>
+                                         <div  class="delete-reply-form-container" id="delete-reply-form-<%= reply.id %>" style="display:none;">
+       
+                  <form method=""  action="">
+                      <div class="delete-article-form">
+                         <div class="delete-article-heading">
+                          <h2>Do you want to delete this reply ?</h2>
+                         </div>
+                         <div class="delete-yes-no-btn">
+                          <div class="delete-yes-btn">
+                                  <button type="button" class="delete-reply-yes" data-reply-id="<%= reply.id %>" onclick="DeleteReply(event)" id="delete-reply-yes-button">Yes</button>
+                           </div>
+                          <div class="delete-no-btn">
+                              <button type="button" onclick="hideDeleteReplyForm(<%=reply.id%>)"  id="delete-reply-no-button">No</button>
+                          </div>
+                         </div>
+                      </div>
+                      </form>
+                 </div>
+                                      
+                                        </div>
+                                       </div> 
+                                         <p><%= reply.content %></p>
+                                     </div>
+                                     
+                                 </div>
+                                 
+                                 <% }) %>
+                                </div>
+                               
+                             </div>
+                            </div>
+                            <% })  %>
+                        </div>
+                      
+                        </div>
+                     </div>
+                    </div>
+                 
+                     
+                 </div>
+                 
+                 <!-- <div  class="delete-article-form-container">
+                     
+                  <form method=""  action="">
+                      <div class="delete-article-form">
+                         <div class="delete-article-heading">
+                          <h2>Do you want to delete this comment ?</h2>
+                         </div>
+                         <div class="delete-yes-no-btn">
+                          <div class="delete-yes-btn">
+                                  <button type="submit" id="delete-yes-button">Yes</button>
+                           </div>
+                          <div class="delete-no-btn">
+                              <button type="button"  id="delete-no-button">No</button>
+                          </div>
+                         </div>
+                      </div>
+                      </form>
+                 </div> -->
+
+                 <!-- <div  class="delete-reply-form-container">
+       
+                  <form method=""  action="">
+                      <div class="delete-article-form">
+                         <div class="delete-article-heading">
+                          <h2>Do you want to delete this reply ?</h2>
+                         </div>
+                         <div class="delete-yes-no-btn">
+                          <div class="delete-yes-btn">
+                                  <button type="submit" id="delete-reply-yes-button">Yes</button>
+                           </div>
+                          <div class="delete-no-btn">
+                              <button type="button"  id="delete-reply-no-button">No</button>
+                          </div>
+                         </div>
+                      </div>
+                      </form>
+                 </div> -->
+                 
+               </div>  
+           </div>
+          
+           </div>
+      </div>
+      
+          
+    </div>
+  
+     
+    <script >
+
+//SEARCH BAR FUNCTIONS ---------------------------------------------
+const searchLogo=document.querySelector(".search-logo")
+const navBar=document.querySelector(".nav-menu")
+const searchBar=document.querySelector(" .search-box-container")
+const cancelSearch=document.querySelector(".cancel-search")
+
+searchLogo.onclick=()=>{
+navBar.classList.add("unactive");
+searchLogo.classList.add("unactive-search");
+searchBar.classList.add("search-box-active");
+cancelSearch.classList.add("cancel-search-active");
+}
+
+cancelSearch.onclick=()=>{
+   
+    setTimeout(() => {
+        searchBar.classList.remove("search-box-active");
+        cancelSearch.classList.remove("cancel-search-active");
+        navBar.classList.remove("unactive");
+        searchLogo.classList.remove("unactive-search");
+    }, 100); 
+}
+
+const searchResult = document.querySelector(".search-result-container");
+const searchInput = document.querySelector("#search");
+const searchButton = document.querySelector(".ipc-submit");
+
+ searchInput.onkeyup = () => {
+  
+   if (searchInput.value.trim() === "") {
+     searchResult.classList.remove("search-result-active");
+   } else {
+    searchResult.classList.add("search-result-active");
+   }
+ };
+
+/*
+searchButton.onclick=()=>{
+    if (searchInput.value.trim() === "") {
+    searchResult.classList.remove("search-result-active");
+  } else {
+    searchResult.classList.add("search-result-active");
+  }
+} */
+
+
+
+searchButton.addEventListener("click", (e) => {
+  e.preventDefault(); 
+  
+});
+
+
+searchInput.addEventListener("input", () => {
+  
+  if (searchInput.value.trim() === "") {
+    searchResult.classList.remove("search-result-active");
+  }
+});
+
+document.getElementById('search').addEventListener('input', async function () {
+    const query = this.value;
+
+    if (query.trim() === '') {
+        document.querySelector('.search-results').innerHTML = ''; // Clear results
+        return;
+    }
+
+    try {
+        const response = await fetch(`/community/search?search=${encodeURIComponent(query)}`);
+        const results = await response.json();
+        console.log(results);
+        const resultsContainer = document.querySelector('.search-results');
+        resultsContainer.innerHTML = ''; // Clear previous results
+       
+        results.forEach(result => {
+            console.log(result);
+            const resultHTML = `
+                <div class="search-result-account">
+                    <div class="search-profile-image-container">
+                        <div class="search-profile-image">
+                            <img src="${result.image || '../uploads/avatar.png'}" alt="${result.name}">
+                        </div>
+                    </div>
+                    <div class="search-profile-name">
+                       <a href="/community/user-profile?id=${result.id}"> <div class="search-user-name">${result.name}</div></a>
+                       
+                        
+                    </div>
+                </div>
+            `;
+            resultsContainer.insertAdjacentHTML('beforeend', resultHTML);
+        });
+    } catch (err) {
+        console.error('Error fetching search results:', err);
+    }
+});
+//-----------------------------------------------------------------
+
+      //Toggle follow
+      function toggleFollow(lawyerId) {
+  fetch("/community/follow", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      lawyerId: lawyerId,
+    }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      const followButton = document.querySelector(".follow-btn");
+
+      // Toggle button text based on the follow status
+      if (data.follow) {
+        followButton.innerText = "Following";  // Change to "Following" after successful follow
+      } else {
+        followButton.innerText = "Follow";  // Change to "Follow" after successful unfollow
+      }
+    } else {
+      console.error("Error following/unfollowing");
+    }
+  })
+  .catch(error => {
+    console.error("Error:", error);
+  });
+}
+
+
+
+
+ 
+
+
+
+const like=document.querySelector(".like")
+const likeI=document.querySelector(".likei")
+
+const postId = window.location.pathname.split('/')[3];
+console.log(postId);
+like.onclick=async ()=>{
+  console.log("clicked")
+  const response =  await fetch("/community/community-toggle-like", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      postId: postId,
+    })
+   }) 
+   const data = await response.json();
+   console.log(data);
+   if(data.success){
+    likeI.classList.toggle("like-active");
+    
+    if(data.likeCount === 0){
+      document.querySelector(".likeCount").innerHTML = `${data.likeCount} Likes` ;
+    }else if (data.likeCount === 1){
+      document.querySelector(".likeCount").innerHTML = `${data.likeCount} Like` ;
+    }else{
+      document.querySelector(".likeCount").innerHTML = `${data.likeCount} Likes` ;
+    }
+
+   }else{
+    console.error("Error liking post");
+   } 
+  
+    
+}
+
+
+
+
+const cancelButtons = document.querySelectorAll(".cnc-btn");
+            const showReplyButtons = document.querySelectorAll(".show-reply-btn");
+            const hideReplyButtons = document.querySelectorAll(".hide-reply-btn");
+            const replyButtons = document.querySelectorAll(".reply-btn-span");
+
+            const showReplies = async (commentId) => {
+              console.log(commentId);
+               const replies = document.querySelectorAll(`.lawyer-previous-reply[data-comment-id='${commentId}']`);
+               replies.forEach(reply => {
+                        reply.classList.add("para-active")
+                    })
+            }
+
+            // showReplyButtons.forEach(button => {
+            //     button.onclick = () => {
+            //         const commentId = button.dataset.commentId;
+            //         const replies = document.querySelectorAll(`.lawyer-previous-reply[data-comment-id='${commentId}']`);
+
+                    // replies.forEach(reply => {
+                    //     reply.classList.add("para-active")
+                    // })
+            //     }
+            // })
+
+            const hideReplies = async (commentId) => {
+              console.log(commentId);
+               const replies = document.querySelectorAll(`.lawyer-previous-reply[data-comment-id='${commentId}']`);
+               replies.forEach(reply => {
+                        reply.classList.remove("para-active")
+                    })
+            }
+
+            // hideReplyButtons.forEach(button => {
+            //     button.onclick = () => {
+            //         const commentId = button.dataset.commentId;
+            //         const replies = document.querySelectorAll(`.lawyer-previous-reply[data-comment-id='${commentId}']`);
+            //         replies.forEach(reply => {
+            //             reply.classList.remove("para-active")
+            //         })
+            //     }
+            // })
+
+            const replyFormShow = async (commentId) => {
+               const replies = document.querySelector(`.lawyer-reply-para[data-comment-id='${commentId}']`);
+               replies.classList.add("para-active")
+            }
+
+            // replyButtons.forEach(button => {
+            //     button.onclick = () => {
+            //         const commentId = button.dataset.commentId;
+            //         const replies = document.querySelectorAll(`.lawyer-reply-para[data-comment-id='${commentId}']`);
+            //         replies.forEach(reply => {
+            //             reply.classList.add("para-active")
+            //         })
+            //     }
+            // })
+
+            const cancelReplyForm = async (commentId) => {  
+              const replies = document.querySelector(`.lawyer-reply-para[data-comment-id='${commentId}']`);
+              replies.classList.remove("para-active")
+            }
+
+            // cancelButtons.forEach(button => {
+            //     button.onclick = () => {
+            //         const commentId = button.dataset.commentId;
+            //         const replies = document.querySelectorAll(`.lawyer-reply-para[data-comment-id='${commentId}']`);
+            //         replies.forEach(reply => {
+            //             reply.classList.remove("para-active")
+            //         })
+            //     }
+            // })
+
+
+
+
+
+
+
+const share=document.querySelector(".share")
+const shareContainer=document.querySelector(".post-share")
+share.onclick=()=>{
+    shareContainer.classList.toggle("post-share-active")
+    share.classList.toggle("share-active")
+}
+
+//ADD A NEW COMMENT
+document.addEventListener('DOMContentLoaded', () => {
+    const submitCommentButton = document.getElementById('submit-comment');
+    const commentsContainer = document.getElementById('comments-container');
+    const postId = document.getElementById('postId').value;
+    const commentInput = document.getElementById('new-review');
+
+    submitCommentButton.addEventListener('click', async (event) => {
+      event.preventDefault();
+      console.log(postId);
+        const comment = commentInput.value.trim();
+        if (!comment) {
+            alert('Comment cannot be empty.');
+            return;
+        }
+        try {
+            const response = await fetch('/community/review', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ postId, comment }),
+            });
+
+            const result = await response.json();
+            console.log(result);
+            if (result.success) {
+                const newCommentElement = document.createElement('div');
+                newCommentElement.classList.add('review-container');
+                newCommentElement.id = `comment-${result.comment.id}`; 
+
+                newCommentElement.innerHTML = `
+                    <div class="reveiew-container" id="comment-${result.comment.id}">
+        <div class="reveiew-name-rating">
+            <div class="reveiew-name">
+                <a href="/community/user-profile?id=${result.comment.user_id}">
+                    ${result.comment.lawyer_name}
+                </a>
+            </div>
+            <div class="review-date-delete">
+                <div class="review-date">
+                    ${result.comment.created_at}
+                </div>
+                ${result.comment.user_id === result.userId ? `
+                    <div class="review-delete">
+                                  <button class="delbtn" type="submit" data-comment-id="${result.comment.id}" onclick="showDeleteForm('${result.comment.id}')"><i
+                                          class="fa-solid fa-trash-can"></i></button>
+                              </div>
+                ` : ''}
+            </div>
+             <div  class="delete-article-form-container" id="delete-form-${result.comment.id}" style="display:none;" >
+                                    <form method=""  action="">
+                                        <div class="delete-article-form">
+                                           <div class="delete-article-heading">
+                                            <h2>Do you want to delete this comment ?</h2>
+                                           </div>
+                                           <div class="delete-yes-no-btn">
+                                            <div class="delete-yes-btn">
+                                                    <button class="delete-comment" type="submit" id="delete-yes-button"  data-comment-id="${result.comment.id}">Yes</button>
+                                             </div>
+                                            <div class="delete-no-btn">
+                                                <button onclick="hideDeleteForm('${result.comment.id}')" type="button" id="delete-no-button" data-comment-id="${result.comment.id}">No</button>
+                                            </div>
+                                           </div>
+                                        </div>
+                                        </form>
+                                   </div>
+        </div>
+        <div class="reveiew-para">
+            <p>${result.comment.content}</p>
+        </div>
+        <div class="lawyer-reply">
+            <div class="reply-btn">
+                <div class="reply-btn-1">
+                    <i class="fa-solid fa-reply"></i>
+                    <span class="reply-btn-span"  onclick="replyFormShow(${result.comment.id})" data-comment-id="${result.comment.id}">Reply</span>
+                </div>
+                <div class="reply-btn-2">
+                    <span class="show-reply-btn" data-comment-id="${result.comment.id}" onclick="showReplies(${comment.id})">Show replies</span>
+                    <span class="hide-reply-btn" data-comment-id="${result.comment.id}" onclick="hideReplies(${comment.id})">Hide replies</span>
+                </div>
+            </div>
+            <div class="lawyer-reply-para" data-comment-id="${result.comment.id}">
+                <form id="add-reply" method="post" action="">
+                    <input type="hidden" name="commentId" value="${result.comment.id}">
+                    <textarea class="boxcolor" name="content" id="reply-para " cols="40" rows="5"></textarea>
+                    <div class="btn-ok-cnc">
+                        <button type="submit" class="ok-btn">Submit</button>
+                        <div class="cnc-btn" onclick="cancelReplyForm(${result.comment.id})"  data-comment-id="${result.comment.id}">Cancel</div>
+                    </div>
+                </form>
+            </div>
+            ${result.comment.replies.map(reply => `
+                <div class="lawyer-previous-reply" id="lawyer-previous-${reply.id}" data-comment-id="${result.comment.id}">
+                    <div class="reply"></div>
+                    <div class="p-reply" id="p-reply-1">
+                        <div class="p-reply-name-date">
+                            <div class="p-reply-name">
+                                <span>${reply.lawyer_name}</span>
+                                <span class="author-label"></span>
+                            </div>
+                            <div class="p-reply-date-delete">
+                                <div class="p-reply-date">
+                                    <span>${formatDate(reply.created_at)}</span>
+                                </div>
+                                ${reply.user_id === result.userId ? `
+                                    <div class="p-reply-delete">
+                                        <!-- Delete Button -->
+                                        <button class="delbtn delete-reply" type="button" onclick="showDeleteReplyForm(${reply.id})" data-reply-id="${reply.id}">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    </div>
+                                ` : ''}
+                                 <div  class="delete-reply-form-container" id="delete-reply-form-${reply.id}" style="display:none;">
+       
+                  <form method=""  action="">
+                      <div class="delete-article-form">
+                         <div class="delete-article-heading">
+                          <h2>Do you want to delete this reply ?</h2>
+                         </div>
+                         <div class="delete-yes-no-btn">
+                          <div class="delete-yes-btn">
+                                  <button type="button" class="delete-reply-yes" data-reply-id="${reply.id}" onclick="DeleteReply(event)" id="delete-reply-yes-button">Yes</button>
+                           </div>
+                          <div class="delete-no-btn">
+                              <button type="button" onclick="hideDeleteReplyForm(${reply.id})"  id="delete-reply-no-button">No</button>
+                          </div>
+                         </div>
+                      </div>
+                      </form>
+                 </div>
+
+                            </div>
+                        </div>
+                        <p>${reply.content}</p>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    </div>
+                `;
+
+                commentsContainer.prepend(newCommentElement);
+
+                commentInput.value = '';
+            } else {
+                alert(result.message || 'Failed to submit comment.');
+            }
+        } catch (error) {
+            console.error('Error submitting comment:', error);
+            alert('An error occurred while submitting the comment.');
+        }
+    });
+});
+
+//ADD A NEW REPLY
+const addReply = async (event, commentId) => {
+    event.preventDefault();
+
+    const textarea = document.querySelector(`.reply-para-${commentId}`);
+    if (!textarea || !textarea.value.trim()) {
+        alert("Reply cannot be empty.");
+        return;
+    }
+
+    try {
+        const response = await fetch("/community-add-reply", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                commentId: commentId,
+                content: textarea.value.trim(),
+            }),
+        });
+
+        const result = await response.json();
+        console.log(result.reply);
+        if (result.success) {
+            newReply= `
+                <div class="lawyer-previous-reply" id="lawyer-previous-${result.reply.id}" data-comment-id="${result.reply.comment_id}">
+                    <div class="reply"></div>
+                    <div class="p-reply" id="p-reply-1">
+                        <div class="p-reply-name-date">
+                            <div class="p-reply-name">
+                                <span>${result.reply.lawyer_name}</span>
+                                <span class="author-label"></span>
+                            </div>
+                            <div class="p-reply-date-delete">
+                                <div class="p-reply-date">
+                                    <span>${result.reply.created_at}</span>
+                                </div>
+                                ${result.reply.user_id === result.userId ? `
+                                    <div class="p-reply-delete">
+                                        <button class="delbtn delete-reply" type="button" onclick="showDeleteReplyForm(${result.reply.id})" data-reply-id="${result.reply.id}">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    </div>
+                                ` : ''}
+                                 <div  class="delete-reply-form-container" id="delete-reply-form-${result.reply.id}" style="display:none;">
+       
+                  <form method=""  action="">
+                      <div class="delete-article-form">
+                         <div class="delete-article-heading">
+                          <h2>Do you want to delete this reply ?</h2>
+                         </div>
+                         <div class="delete-yes-no-btn">
+                          <div class="delete-yes-btn">
+                                  <button type="button" class="delete-reply-yes" data-reply-id="${result.reply.id}" onclick="DeleteReply(event)" id="delete-reply-yes-button">Yes</button>
+                           </div>
+                          <div class="delete-no-btn">
+                              <button type="button" onclick="hideDeleteReplyForm(${result.reply.id})"  id="delete-reply-no-button">No</button>
+                          </div>
+                         </div>
+                      </div>
+                      </form>
+                 </div>
+
+                            </div>
+                        </div>
+                        <p>${result.reply.content}</p>
+                    </div>
+                </div>
+            `;
+
+            // Append the new reply to the replies container
+            const repliesContainer = document.getElementById(`replies-container-${commentId}`);
+            if (repliesContainer) {
+              const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = newReply;
+        repliesContainer.prepend(tempDiv.firstElementChild);
+            }
+
+            // Clear the textarea and hide the form
+            textarea.value = "";
+            cancelReplyForm(commentId);
+        } else {
+            alert(result.message || "Failed to add reply. Please try again.");
+        }
+    } catch (error) {
+        console.error("Error adding reply:", error);
+        alert("An error occurred. Please try again.");
+    }
+};
+
+
+
+//DELETE COMMENT
+document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('click', async (e) => {
+        if (e.target.closest('.delete-comment')) {
+            e.preventDefault()
+            const button = e.target.closest('.delete-comment');
+            const commentId = button.dataset.commentId;
+            console.log(commentId);
+
+            try {
+                const response = await fetch(`/community/comment/${commentId}`, {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    const commentElement = document.getElementById(`comment-${commentId}`);
+                    if (commentElement) commentElement.remove();
+                } else {
+                    alert(result.message || 'Failed to delete comment.');
+                }
+            } catch (error) {
+                console.error('Error deleting comment:', error);
+                alert('An error occurred while deleting the comment.');
+            }
+        }
+    });
+
+});
+
+//FUNCTION FOR DELETING COMMENT
+const DeleteComment = async (event) => {
+
+        if (e.target.closest('.delete-comment')) {
+          console.log("clicked");
+            e.preventDefault()
+            const button = e.target.closest('.delete-comment');
+            const commentId = button.dataset.commentId;
+            console.log(commentId);
+
+            try {
+                const response = await fetch(`/community/comment/${commentId}`, {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Remove the comment from the DOM
+                    const commentElement = document.getElementById(`comment-${commentId}`);
+                    if (commentElement) commentElement.remove();
+                } else {
+                    alert(result.message || 'Failed to delete comment.');
+                }
+            } catch (error) {
+                console.error('Error deleting comment:', error);
+                alert('An error occurred while deleting the comment.');
+            }
+        }
+}
+
+//Function for deleting Reply
+const DeleteReply = async (event) => {
+  if(event.target.closest('.delete-reply-yes')){
+          console.log("clicked");
+          event.preventDefault();
+          const button = event.target.closest('.delete-reply-yes');
+            const replyId = button.dataset.replyId;
+            console.log(replyId);
+            
+            try {
+                const response = await fetch(`/community/del-reply/${replyId}`, {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Remove the comment from the DOM
+                    const replyElement = document.getElementById(`lawyer-previous-${replyId}`);
+                    if (replyElement) replyElement.remove();
+
+                } else {
+                    alert(result.message || 'Failed to delete reply.');
+                }
+            } catch (error) {
+                console.error('Error deleting reply:', error);
+                alert('An error occurred while deleting the reply.');
+            }
+          }  
+}
+
+
+
+// Function to show the comment delete confirmation form
+function showDeleteForm(commentId) {
+    const formContainer = document.getElementById(`delete-form-${commentId}`);
+    if (formContainer) {
+        formContainer.style.display = 'block'; 
+    }
+}
+
+// Function to hide the comment delete confirmation form
+function hideDeleteForm(commentId) {
+    const formContainer = document.getElementById(`delete-form-${commentId}`);
+    if (formContainer) {
+        formContainer.style.display = 'none'; 
+    }
+}
+
+//Show Reply Delete Form
+const showDeleteReplyForm = async (replyId) => {
+  
+    const formContainer = document.getElementById(`delete-reply-form-${replyId}`);
+    if (formContainer) {
+        formContainer.style.display = "block";
+    }
+};
+
+//Hide Reply Delete form
+const hideDeleteReplyForm = (replyId) => {
+    const formContainer = document.getElementById(`delete-reply-form-${replyId}`);
+    if (formContainer) {
+        formContainer.style.display = "none";
+    }
+};
+
+
+
+//FORMATTING DATE FUNCTION
+function formatDate(dateString) {
+  const options = { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric', 
+    hour: 'numeric', 
+    minute: 'numeric', 
+    second: 'numeric', 
+    hour12: true 
+  };
+
+  const date = new Date(dateString);
+  return date.toLocaleString('en-US', options);
+}
+
+
+// Select all delete buttons
+const deleteButtons = document.querySelectorAll('.delbtn');
+
+// Add click event listeners to each delete button
+deleteButtons.forEach(deleteButton => {
+    deleteButton.addEventListener('click', () => {
+        const commentId = deleteButton.getAttribute('data-comment-id');
+        const formContainer = document.getElementById(`delete-form-${commentId}`);
+        
+        // Show the confirmation form for the clicked comment
+        if (formContainer) {
+            formContainer.style.display = 'block'; // Show the form
+        }
+    });
+});
+
+// Select all "No" buttons
+const noButtons = document.querySelectorAll('#delete-no-button');
+
+// Add click event listeners to each "No" button
+noButtons.forEach(noButton => {
+    noButton.addEventListener('click', () => {
+        const commentId = noButton.getAttribute('data-comment-id');
+        const formContainer = document.getElementById(`delete-form-${commentId}`);
+        
+        // Hide the confirmation form for the clicked comment
+        if (formContainer) {
+            formContainer.style.display = 'none'; // Hide the form
+        }
+    });
+});
+
+
+const deletereply=document.querySelector(".replydelbtn");
+ const deletereplyform=document.querySelector(".delete-reply-form-container");
+ const deletereplyNoBtn=document.getElementById("delete-reply-no-button");
+
+ deletereply.onclick=()=>{
+    deletereplyform.classList.add("delete-form-active")
+ }
+ deletereplyNoBtn.onclick=()=>{
+    deletereplyform.classList.remove("delete-form-active")
+ }
+
+
+
+
+
+</script>
+</body>
+</html>
